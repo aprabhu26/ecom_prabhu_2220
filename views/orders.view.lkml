@@ -37,6 +37,25 @@ view: orders {
   dimension: status {
     type: string
     sql: ${TABLE}.status ;;
+    html:
+    {% if value == 'complete' %}
+    {% assign indicator = "green,▲" | split: ',' %}
+    {% elsif value == 'cancelled' %}
+    {% assign indicator = "red,▼" | split: ',' %}
+    {% else %}
+    {% assign indicator = "black,▬" | split: ',' %}
+  {% endif %}
+
+  <font color="{{indicator[0]}}">
+
+  {% if value == 99999.12345 %} &infin
+
+  {% else %}{{rendered_value}}
+
+  {% endif %} {{indicator[1]}}
+
+  </font> ;;
+
   }
 
   dimension: user_id {
